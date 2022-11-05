@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainRelativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/day_bg"
+    android:foregroundTint="#00A33A3A"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <SearchView
+        android:id="@+id/search"
+        android:layout_width="360dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal" />
+
+    <Button
+        android:id="@+id/unitButton"
+        android:onClick="onPress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeAndDateText"
+        android:layout_marginLeft="103dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/weatherImage"
+        android:backgroundTint="@color/white"
+        android:text="Change\nUnits"
+        android:textColor="@color/black"
+        android:textSize="8dp" />
+
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:paddingLeft="30dp"
+        android:text="City, State" />
+
+    <TextView
+        android:id="@+id/temperatureText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeAndDateText"
+        android:paddingLeft="30dp"
+        android:text="80 °F"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/temperatureText"
+        android:paddingLeft="30dp"
+        android:text="August 7, " />
+
+    <TextClock
+        android:id="@+id/timeAndDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/date"
+        android:paddingTop="120dp"
+        android:text="09:00AM"
+        android:textSize="15dp" />
+
+    <ImageView
+        android:id="@+id/weatherImage"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_below="@+id/timeAndDateText"
+        android:layout_toRightOf="@+id/temperatureText"
+        android:paddingLeft="15dp"
+        android:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/feelslike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/temperatureText"
+        android:paddingLeft="30dp"
+        android:text="Feels like: x"
+        android:textSize="16dp"
+
+        />
+
+    <TextView
+        android:id="@+id/windSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/feelslike"
+        android:layout_marginLeft="30dp"
+        android:text="Wind: "
+        android:textSize="15dp" />
+
+
+
+</RelativeLayout>
