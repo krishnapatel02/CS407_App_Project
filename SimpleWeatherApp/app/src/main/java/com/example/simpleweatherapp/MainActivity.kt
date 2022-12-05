@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var button:Button
     private var temperature = 0.0
     private var celcius = ""
+    private var weatherStr = ""
 
     var API_KEY = "caa39f0b7263fe9e809371d7ec15ef82"
     var weather_url = ""
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
         }
         fusedLocationClient.lastLocation.addOnSuccessListener{location: Location? ->
             weather_url = "https://api.openweathermap.org/data/2.5/weather?lat=" + location?.latitude + "&lon=" + location?.longitude + "&appid=" + API_KEY + "&units=imperial"
+            print(weather_url)
             val geocoder = Geocoder(this, Locale.getDefault())
             var lat: Double? = location?.latitude?.toDouble()
             var lon: Double? = location?.longitude?.toDouble()
@@ -121,14 +123,19 @@ class MainActivity : AppCompatActivity() {
             { response ->
                 // get the JSON object
                 val obj = JSONObject(response.toString())
+                Log.e("obj", obj.toString())
+                val weather = obj.getJSONArray("weather").getJSONObject(0)
+                Log.e("weather0", weather.toString())
                 val main = obj.getJSONObject("main")
                 temperature = main.getString("temp").toDouble()
                 val degree = obj.getJSONObject("wind").getString("deg")
+                weatherStr = weather.getString("main")
                 temperatureText.text = toF(temperature)
                 celcius = toC(temperature)
                 windText.text = "Wind speed: " + obj.getJSONObject("wind").getString("speed") + " mph " + windDirection(degree.toInt())
                 feelslike.text = "Feels like: " + toF(main.getString("feels_like").toDouble())
-
+               // print(weatherStr)
+                displayWeatherImage(weatherStr)
                 // get the Array from obj of name - "data"
 
 
@@ -140,23 +147,31 @@ class MainActivity : AppCompatActivity() {
         queue.add(stringReq)
 
     }
+
+    fun displayWeatherImage(weather:String){
+        print(weather)
+        if(weather == "Clouds"){
+            weatherImage.setImageResource(R.drawable.cloud)
+        }
+    }
+
     fun toF(temp: Double): String {
         val num = String.format("%.1f", temp).toDouble()
         return num.toString() + " °F"
     }
 
     fun toC(temp: Double): String {
-        val tempC = (temp - 32)*(5/9)
+        val tempC = (temp - 32)*(5.0/9.0)
         val num = String.format("%.1f", tempC).toDouble()
         return num.toString() + " °C"
     }
 
     fun toCnum(tempF: Double): Double {
-        val tempC = (tempF - 32)*(5/9)
+        val tempC = (tempF - 32)*(5.0/9.0)
         return tempC
     }
     fun toFnum(tempC: Double): Double {
-        val tempF = (tempC *(9/5))+32
+        val tempF = (tempC *(9.0/5.0))+32
         return tempF
     }
     fun windDirection(degrees: Int): String{
