@@ -7,10 +7,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.SearchView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.android.volley.Request
@@ -33,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dateText:TextView
     private lateinit var feelslike:TextView
     private lateinit var city:TextView
+    private lateinit var mainLayout:RelativeLayout
     private lateinit var button:Button
     private var temperature = 0.0
     private var celcius = ""
@@ -49,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         temperatureText = findViewById(R.id.temperatureText)
+        mainLayout = findViewById(R.id.mainRelativeLayout)
         windText = findViewById(R.id.windSpeed)
         dateText = findViewById(R.id.date)
         feelslike = findViewById(R.id.feelslike)
@@ -72,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         val day = currentDate.dayOfMonth
         dateText.text = m.toString() + " " + day.toString() + ", "
         weatherImage = findViewById(R.id.weatherImage)
-        search= findViewById(R.id.search)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -152,6 +150,17 @@ class MainActivity : AppCompatActivity() {
         print(weather)
         if(weather == "Clouds"){
             weatherImage.setImageResource(R.drawable.cloud)
+            mainLayout.setBackgroundResource(R.drawable.cloud_rain_bg)
+        };if(weather == "Rain"){
+            mainLayout.setBackgroundResource(R.drawable.cloud_rain_bg)
+            weatherImage.setImageResource(R.drawable.rainy)
+        };if(weather == "Sunny"){
+            weatherImage.setImageResource(R.drawable.sunny)
+            mainLayout.setBackgroundResource(R.drawable.day_bg)
+        };if(weather == "Wind"){
+            weatherImage.setImageResource(R.drawable.wind)
+        };if(weather == "Snow"){
+            weatherImage.setImageResource(R.drawable.snowy)
         }
     }
 
